@@ -8,10 +8,17 @@ public:
 
     void display() const;
 
+    complex &operator+=(const complex &other) noexcept;
+    complex &operator-=(const complex &other) noexcept;
+    complex &operator*=(const complex &other) noexcept;
+    complex &operator/=(const complex &other) noexcept;
+
     complex operator+(const complex &other) const noexcept;
     complex operator-(const complex &other) const noexcept;
     complex operator*(const complex &other) const noexcept;
     complex operator/(const complex &other) const noexcept;
+
+    bool operator==(const complex &other) const noexcept;
 
 private:
     double real{};

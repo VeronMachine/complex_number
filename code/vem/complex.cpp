@@ -16,27 +16,49 @@ void complex::display() const {
     }
 }
 
+complex &complex::operator+=(const complex &other) noexcept {
+    real += other.real;
+    imaginary += other.imaginary;
+    return *this;
+}
+
+complex &complex::operator-=(const complex &other) noexcept {
+    real -= other.real;
+    imaginary -= other.imaginary;
+    return *this;
+}
+
+complex &complex::operator*=(const complex &other) noexcept {
+    real = real * other.real - imaginary * other.imaginary;
+    imaginary = real * other.imaginary + imaginary * other.real;
+    return *this;
+}
+
+complex &complex::operator/=(const complex &other) noexcept {
+    const double denominator{ 1.0 / (other.real * other.real + other.imaginary * other.imaginary) };
+    real = (real * other.real + imaginary * other.imaginary) * denominator;
+    imaginary = (real * other.imaginary - imaginary * other.real) * denominator;
+    return *this;
+}
+
 complex complex::operator+(const complex &other) const noexcept {
-    return complex{ real + other.real, imaginary + other.imaginary };
+    return complex{ *this } += other;
 }
 
 complex complex::operator-(const complex &other) const noexcept {
-    return complex{ real - other.real, imaginary - other.imaginary };
+    return complex{ *this } -= other;
 }
 
 complex complex::operator*(const complex &other) const noexcept {
-    return complex{
-        real * other.real - imaginary * other.imaginary,
-        real * other.imaginary + imaginary * other.real
-    };
+    return complex{ *this } *= other;
 }
 
 complex complex::operator/(const complex &other) const noexcept {
-    const double denominator{ 1.0 / (other.real * other.real + other.imaginary * other.imaginary) };
-    return complex{
-        (real * other.real + imaginary * other.imaginary) * denominator,
-        (real * other.imaginary - imaginary * other.real) * denominator
-    };
+    return complex{ *this } /= other;
+}
+
+bool complex::operator==(const complex &other) const noexcept {
+    return real == other.real && imaginary == other.imaginary;
 }
 
 } // nemaspace vem
