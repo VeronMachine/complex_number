@@ -1,4 +1,6 @@
 #include <cstdio>
+
+#include <complex>
 #include "vem/complex.hpp"
 
 void show_operation(const vem::complex &lhv, const vem::complex &rhv, const char oper) {
